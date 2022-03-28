@@ -72,3 +72,4 @@ INSERT INTO `albums` (`id`, `artist`, `name`, `release_date`, `sales`, `genre`) 
                                                                                     (74,	'Elton John',	'Goodbye Yellow Brick Road',	1973,	8.5,	'rock, pop rock, glam rock');
 
 -- 2022-03-28 18:31:28
+
