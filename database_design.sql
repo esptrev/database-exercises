@@ -39,6 +39,20 @@ create table if not exists adusers
     primary key (id)
 );
 
+INSERT INTO adusers(USER_EMAIL, USER_SCREEN_NAME, USER_PASSWORD)
+VALUES  ('esptrev@gmail.com','easymoney','ilovecoding'),
+       ('cody@codeup.com', 'yellowduckey', 'howardsdaddy'),
+       ('jessica_rabbit@vavavoom.com','rgrrbtmisstress','iheartrrabbit'),
+       ('bdeverequx@gg.com','blachedev','alwaysAGG'),
+       ('ponch@chp.org','rrrriccohpo','ridetilludie');
+
+
+# update adusers
+# set user_screen_name = 'rrrriccohpo'
+#   where id = 5;
+
+
+
 create table if not exists adposts
 (
     id  int unsigned not null auto_increment,
@@ -47,28 +61,58 @@ create table if not exists adposts
     ad_category int unsigned not null,
     FOREIGN KEY (ad_category) references categories(cat_id),
     ad_owner int unsigned not null,
-    Foreign Key (ad_owner) references adusers(id)
+    Foreign Key (ad_owner) references adusers(id),
+    PRIMARY KEY (id)
 );
 
 create table if not exists categories
 (
     cat_id int unsigned not null,
+    cat_description varchar(250) not null,
     cat_name varchar(50) not null,
     primary key (cat_id)
 );
+
+
+
+insert into categories (cat_name,cat_description)
+values ('For Sale', 'Any non automotive items for sale in woring condition'),
+       ('Cars','Running passenger vehicles, that are registerable and titeable'),
+       ('Help Wanted','List all open jobs here, can be W2,1099,temp to hire, etc'),
+       ('Roommates','Please use this section to list any sublets, or whole units for rent');
+
+
+CREATE TABLE IF NOT EXISTS categories_adusers_adposts
+    (
+        user int unsigned not null ,
+        foreign key(user) references adusers(id),
+        post int unsigned not null,
+        foreign key(post) references adposts(id),
+        category int unsigned not null,
+        foreign key (category) references categories(cat_id)
+);
+
+
+
 
 select adu.user_email
 from adusers AS adu
 join adposts a on adu.id = a.ad_owner;
 
 
+
+
 select cat_name
 from categories
 join adposts a on categories.cat_id = a.ad_category;
 
+
+
 select ad_title
 from adposts
 join categories c on c.cat_id = adposts.ad_category;
+
+
 
 select ad_title
 from adposts
